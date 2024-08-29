@@ -1,4 +1,4 @@
-export interface Link {
+export interface LinkId {
     _id: string;
     shortUrl: string;
     originalUrl: string;

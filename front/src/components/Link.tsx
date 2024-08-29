@@ -4,6 +4,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import React, {useState} from "react";
 import {LinkWithoutId} from "../types.ts";
 import {useAppDispatch} from "../../app/hooks.ts";
+import {postOriginalUrl} from "./linkThunk.ts";
 
 const Link = () => {
     const dispatch = useAppDispatch();
@@ -15,7 +16,7 @@ const Link = () => {
 
     const submitFormHandler = async (event: React.FormEvent) => {
         event.preventDefault();
-        await dispatch(({...state}));
+        await dispatch(postOriginalUrl({...state}));
     };
 
     const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
