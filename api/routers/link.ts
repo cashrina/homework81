@@ -1,27 +1,10 @@
 import express from 'express';
 import LinkId from '../models/LinkId';
 
-const linkRouter = express.Router();
-
-linkRouter.get('/:shortUrl', async (req, res, next) => {
-  try {
-    const { shortUrl } = req.params;
-
-    const link = await LinkId.findOne({ shortUrl });
-
-    if (!link || !link.originalUrl) {
-      return res.status(404).send('Link not found');
-    }
-    return res.status(301).redirect(link.originalUrl as string);
-  } catch (e) {
-    next(e);
-  }
-});
-
-const generateShortUrl = async () => {
+const generateShortUrl = async (): Promise<string> => {
   const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
   let shortUrl = '';
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 7; i++) {
     shortUrl += charset.charAt(Math.floor(Math.random() * charset.length));
   }
 
@@ -33,11 +16,11 @@ const generateShortUrl = async () => {
   return shortUrl;
 };
 
+const linkRouter = express.Router();
 
-linkRouter.post('/links', async (req, res,next) => {
+linkRouter.post('/', async (req, res, next) => {
   try {
     const { originalUrl } = req.body;
-
 
     if (!originalUrl) {
       return res.status(400).send('originalUrl is required');
@@ -53,6 +36,22 @@ linkRouter.post('/links', async (req, res,next) => {
     await newLink.save();
 
     res.status(201).json(newLink);
+  } catch (error) {
+    next(error);
+  }
+});
+
+linkRouter.get('/:shortUrl', async (req, res, next) => {
+  try {
+    const { shortUrl } = req.params;
+
+    const link = await LinkId.findOne({ shortUrl });
+
+    if (!link || !link.originalUrl) {
+      return res.status(404).send('Link not found');
+    }
+
+    res.status(301).redirect(link.originalUrl);
   } catch (error) {
     next(error);
   }

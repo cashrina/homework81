@@ -4,7 +4,7 @@ export interface LinkId {
     originalUrl: string;
 }
 
-export interface LinkWithoutId {
+export interface LinkWithShortUrl {
     shortUrl: string;
     originalUrl: string;
 }

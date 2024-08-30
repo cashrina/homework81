@@ -2,14 +2,14 @@ import {Grid, TextField} from "@mui/material";
 import { LoadingButton } from '@mui/lab';
 import SaveIcon from '@mui/icons-material/Save';
 import React, {useState} from "react";
-import {LinkWithoutId} from "../types.ts";
+import {LinkWithShortUrl} from "../types.ts";
 import {useAppDispatch} from "../../app/hooks.ts";
 import {postOriginalUrl} from "./linkThunk.ts";
 
 const Link = () => {
     const dispatch = useAppDispatch();
 
-    const [state, setState] = useState<LinkWithoutId>({
+    const [state, setState] = useState<LinkWithShortUrl>({
         shortUrl: '',
         originalUrl: '',
     });

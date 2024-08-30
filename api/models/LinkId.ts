@@ -14,6 +14,6 @@ const LinkSchema = new Schema ({
   },
 });
 
-const Link = mongoose.model('Product', LinkSchema);
+const LinkId = mongoose.model('LinkId', LinkSchema);
 
-export default Link;
+export default LinkId;
