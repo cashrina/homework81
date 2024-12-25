@@ -9,7 +9,7 @@ app.use(express.static('public'));
 
 const run = async () => {
     try {
-        console.log('Подключение к NongoDb');
+        console.log('Подключение к MongoDb');
         await mongoose.connect('mongodb://localhost/links');
         console.log('Подключение к MongoDb');
 
