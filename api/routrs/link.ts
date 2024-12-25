@@ -20,9 +20,7 @@ const generateShortUrl = async (): Promise<string> => {
 
 const linkRouter = express.Router();
 
-linkRouter.post(
-  '/',
-  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+linkRouter.post('/links', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { originalUrl } = req.body;
 
@@ -41,6 +39,23 @@ linkRouter.post(
       await newLink.save();
 
       res.status(201).json(newLink);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+linkRouter.get('/:shortUrl', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const { shortUrl } = req.params;
+      const link = await LinkId.findOne({ shortUrl });
+
+      if (!link || !link.originalUrl) {
+        res.status(404).send('Не существует ссылки');
+        return;
+      }
+
+      res.status(301).redirect(link.originalUrl);
     } catch (err) {
       next(err);
     }

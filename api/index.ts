@@ -7,12 +7,12 @@ const port = 8080;
 
 app.use(express.json());
 app.use(express.static('public'));
-app.use('/links',linkRouter);
+app.use('/',linkRouter);
 
 const run = async () => {
     try {
         console.log('Подключение к MongoDb');
-        await mongoose.connect('mongodb://localhost/links');
+        await mongoose.connect('mongodb://localhost/');
         console.log('Подключение к MongoDb');
 
         app.listen(port, () => {
