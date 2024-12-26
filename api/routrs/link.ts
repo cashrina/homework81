@@ -2,7 +2,6 @@ import express from 'express';
 import { Request, Response, NextFunction } from 'express';
 import LinkId from '../models/LinkId';
 
-
 const generateShortUrl = async (): Promise<string> => {
   const lettersRandom = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
   let shortUrl = '';

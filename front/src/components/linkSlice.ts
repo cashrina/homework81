@@ -1,6 +1,6 @@
 import {LinkId} from "../types.ts";
 import {createSlice} from "@reduxjs/toolkit";
-import {getShortUrl, portOriginalUrl} from "./linkThunk.ts";
+import {getShortUrl, postOriginalUrl} from "./linkThunk.ts";
 
 export interface LinkState {
     items: LinkId[];
@@ -17,18 +17,18 @@ const initialState: LinkState = {
 };
 
 export const linkSlice = createSlice({
-    name: "Link",
+    name: "link",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(portOriginalUrl.pending, (state) => {
+            .addCase(postOriginalUrl.pending, (state) => {
                 state.isCreating = true;
             })
-            .addCase(portOriginalUrl.fulfilled, (state) => {
+            .addCase(postOriginalUrl.fulfilled, (state) => {
                 state.isCreating = false;
             })
-            .addCase(portOriginalUrl.rejected, (state) => {
+            .addCase(postOriginalUrl.rejected, (state) => {
                 state.isCreating = false
             });
 
